@@ -1,0 +1,5 @@
+{{ define "main" }}
+  {{ range site.Params.sections }}
+    {{ partial (printf "sections/%s.html" .) $ }}
+  {{ end }}
+{{ end }}

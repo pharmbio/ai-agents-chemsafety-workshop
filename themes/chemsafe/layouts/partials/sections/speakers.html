@@ -1,0 +1,35 @@
+{{ $sessions := site.Data.programme.sessions }}
+<section id="speakers" class="section speakers" aria-labelledby="speakers-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="speakers-title">Speakers</h2>
+      <p class="muted">Speakers are to be confirmed.</p>
+    </div>
+    <ul class="speaker-list">
+      {{ range site.Data.speakers.people }}
+      {{ $id := .id }}
+      <li class="speaker" id="speaker-{{ .id }}">
+        <div class="avatar">
+          {{ if .photo }}
+            <img src="{{ .photo | relURL }}" alt="" loading="lazy">
+          {{ else }}
+            {{ $parts := split .name " " }}
+            <span aria-hidden="true">{{ with .initials }}{{ . }}{{ else }}{{ substr (index $parts 0) 0 1 }}{{ substr (index $parts (sub (len $parts) 1)) 0 1 }}{{ end }}</span>
+          {{ end }}
+        </div>
+        <div class="speaker-body">
+          <h3>{{ with .url }}<a href="{{ . }}" rel="noopener">{{ end }}{{ .name }}{{ if .url }}</a>{{ end }}</h3>
+          <p class="muted">{{ with .role }}{{ . }}, {{ end }}{{ .affiliation | default "Affiliation to be added" }}</p>
+          {{ if not .confirmed }}<p class="tbc">To be confirmed</p>{{ end }}
+          {{ with .bio }}<div class="prose small">{{ . | markdownify }}</div>{{ end }}
+          <ul class="speaker-sessions">
+            {{ range $sessions }}{{ if in .speakers $id }}
+            <li><a href="#programme" data-goto="{{ .id }}">{{ .start }}</a> {{ .title }}</li>
+            {{ end }}{{ end }}
+          </ul>
+        </div>
+      </li>
+      {{ end }}
+    </ul>
+  </div>
+</section>

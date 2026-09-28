@@ -1,0 +1,12 @@
+{{/* Renders one sponsor. Falls back to a typeset name when no logo file is set. */}}
+{{ $s := . }}
+<li class="sponsor">
+  <a href="{{ $s.url }}" rel="noopener" target="_blank">
+    {{ if $s.logo }}
+      <img src="{{ $s.logo | relURL }}" alt="{{ $s.name }}" loading="lazy">
+    {{ else }}
+      <span class="sponsor-name">{{ index (split $s.name ",") 0 }}</span>
+    {{ end }}
+  </a>
+  {{ with $s.note }}<span class="sponsor-note">{{ . }}</span>{{ end }}
+</li>

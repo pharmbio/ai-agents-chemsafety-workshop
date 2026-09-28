@@ -1,0 +1,26 @@
+{{ $p := site.Params }}
+{{ $sp := site.Data.sponsors }}
+<footer class="site-footer">
+  {{ if or .IsHome $p.features.sponsorsOnAllPages }}
+  <section class="sponsors wrap" aria-labelledby="sponsors-title">
+    <h2 id="sponsors-title" class="visually-hidden">Organisers and funders</h2>
+    <p class="ack">{{ $sp.acknowledgement }}</p>
+    <div class="sponsor-groups">
+      <div class="sponsor-group">
+        <h3>Organised by</h3>
+        <ul class="sponsor-list">{{ range $sp.organisers }}{{ partial "logo.html" . }}{{ end }}</ul>
+      </div>
+      <div class="sponsor-group">
+        <h3>Funded by</h3>
+        <ul class="sponsor-list">{{ range $sp.funders }}{{ partial "logo.html" . }}{{ end }}</ul>
+      </div>
+    </div>
+  </section>
+  {{ end }}
+  <div class="footer-base">
+    <div class="wrap footer-base-inner">
+      <p>Questions? Contact {{ $p.contact.name }}, <a href="mailto:{{ $p.contact.email }}">{{ $p.contact.email }}</a></p>
+      <p><a href="{{ "privacy/" | relURL }}">Privacy notice</a> <span aria-hidden="true">/</span> <a href="#top">Back to top</a></p>
+    </div>
+  </div>
+</footer>

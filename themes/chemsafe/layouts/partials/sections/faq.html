@@ -1,0 +1,14 @@
+<section id="faq" class="section faq" aria-labelledby="faq-title">
+  <div class="wrap faq-wrap">
+    <h2 id="faq-title">Questions and answers</h2>
+    <div class="faq-list">
+      {{ range site.Data.faq.items }}
+      <details class="faq-item">
+        <summary>{{ .q }}</summary>
+        <div class="prose">{{ .a | markdownify }}</div>
+      </details>
+      {{ end }}
+    </div>
+    <p class="muted">Something else? Email <a href="mailto:{{ site.Params.contact.email }}">{{ site.Params.contact.email }}</a>.</p>
+  </div>
+</section>

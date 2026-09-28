@@ -1,0 +1,20 @@
+{{ $home := site.Home.RelPermalink }}
+<header class="topbar" id="top">
+  <div class="wrap topbar-inner">
+    <a class="brand" href="{{ $home }}">
+      {{ partial "mark.html" . }}
+      <span>{{ site.Title }}</span>
+    </a>
+    <button class="nav-toggle" type="button" aria-expanded="false" aria-controls="site-nav">Menu</button>
+    <nav id="site-nav" class="site-nav" aria-label="Main">
+      <ul>
+        {{ range site.Params.nav }}
+        <li><a href="{{ if $.IsHome }}{{ .url }}{{ else }}{{ $home }}{{ .url }}{{ end }}">{{ .name }}</a></li>
+        {{ end }}
+      </ul>
+      {{ if site.Params.registration.open }}
+      <a class="btn btn-small" href="{{ partial "register-url.html" . }}">Register</a>
+      {{ end }}
+    </nav>
+  </div>
+</header>

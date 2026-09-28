@@ -1,0 +1,37 @@
+# =============================================================================
+#  ABOUT SECTION: aims, topics and audience
+#  The intro paragraph itself is in content/_index.md
+# =============================================================================
+
+aims:
+  - "Give an overview of current agentic AI systems for toxicology and chemical risk assessment"
+  - "Show working examples, from data retrieval to read-across and weight-of-evidence reports"
+  - "Discuss validation, transparency and reproducibility of agent outputs"
+  - "Identify what industry and regulators need before agent-generated evidence can be used in assessments"
+  - "Connect groups working on these questions in Sweden and Europe"
+
+# Visitors can mark topics they care about. Their picks are added to the
+# registration form. Keep ids short and unique.
+topics:
+  - id: architectures
+    title: "Agent architectures"
+    text: "Tool use, multi-agent systems, retrieval over toxicology databases and literature."
+  - id: models
+    title: "Predictive models and NAMs"
+    text: "Integrating QSAR, DILI and pharmacokinetic models and new approach methodologies."
+  - id: read-across
+    title: "Read-across and categories"
+    text: "Read-across and category formation supported by agents."
+  - id: woe
+    title: "Weight of evidence and reporting"
+    text: "Report generation aligned with ECHA/REACH and OECD frameworks."
+  - id: benchmarking
+    title: "Benchmarking"
+    text: "Test cases with reference answers, adversarial and edge cases, hallucination checks."
+  - id: oversight
+    title: "Human oversight and audit trails"
+    text: "Documentation that regulatory acceptance would require."
+
+audience:
+  intro: "Researchers in computational toxicology, cheminformatics and AI; risk assessors at agencies and in industry; and PhD students and postdocs in these fields."
+  note: "No programming experience is needed to follow the talks."

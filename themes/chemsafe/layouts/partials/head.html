@@ -1,0 +1,37 @@
+{{ $p := site.Params }}
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>{{ if .IsHome }}{{ site.Title }} | {{ $p.dateLabel }}, Uppsala{{ else }}{{ .Title }} | {{ site.Title }}{{ end }}</title>
+{{ $desc := .Description | default $p.description }}
+<meta name="description" content="{{ $desc }}">
+<meta name="theme-color" content="#0b5f5b">
+<meta property="og:type" content="website">
+<meta property="og:title" content="{{ site.Title }}">
+<meta property="og:description" content="{{ $desc }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<link rel="canonical" href="{{ .Permalink }}">
+<link rel="icon" href="{{ "img/favicon.svg" | relURL }}" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:ital,wght@0,400;0,700;1,400&family=Bricolage+Grotesque:opsz,wght@12..96,400;12..96,600;12..96,700;12..96,800&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+{{ $css := resources.Get "css/main.css" | minify | fingerprint }}
+<link rel="stylesheet" href="{{ $css.RelPermalink }}" integrity="{{ $css.Data.Integrity }}">
+{{ if .IsHome }}
+<script type="application/ld+json">
+{{ dict
+  "@context" "https://schema.org"
+  "@type" "Event"
+  "name" site.Title
+  "description" $p.description
+  "startDate" (printf "%sT%s:00%s" $p.date $p.startTime $p.utcOffset)
+  "endDate" (printf "%sT%s:00%s" $p.date $p.endTime $p.utcOffset)
+  "eventAttendanceMode" "https://schema.org/MixedEventAttendanceMode"
+  "eventStatus" "https://schema.org/EventScheduled"
+  "isAccessibleForFree" true
+  "location" (slice
+      (dict "@type" "Place" "name" $p.venue.name "address" $p.venue.address)
+      (dict "@type" "VirtualLocation" "url" .Permalink))
+  "organizer" (dict "@type" "Organization" "name" "Uppsala University and Mistra SafeChem")
+  | jsonify | safeJS }}
+</script>
+{{ end }}

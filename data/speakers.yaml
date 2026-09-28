@@ -1,0 +1,54 @@
+# =============================================================================
+#  SPEAKERS
+#    id          must match the ids used in data/programme.yaml
+#    name        full name
+#    affiliation organisation
+#    role        job title (optional)
+#    bio         one or two sentences, Markdown allowed (optional)
+#    photo       path inside /static, e.g. "img/speakers/ola-spjuth.jpg".
+#                Square images of about 400x400 px work best.
+#                Leave "" to show the person's initials instead.
+#    initials    optional override for the initials, e.g. "?" for a TBC slot
+#    url         personal or group page (optional)
+#    confirmed   true / false. false shows "To be confirmed".
+#  Sessions are listed on each card automatically from the programme.
+# =============================================================================
+
+people:
+  - id: ola-spjuth
+    name: "Ola Spjuth"
+    affiliation: "Uppsala University"
+    role: ""
+    bio: ""
+    photo: ""
+    url: "https://pharmb.io"
+    confirmed: true
+
+  - id: chris-dinh-long
+    name: "Chris Dinh Long"
+    affiliation: ""
+    role: ""
+    bio: ""
+    photo: ""
+    url: ""
+    confirmed: false
+
+  - id: edgar-lopez
+    name: "Edgar López López"
+    affiliation: "Uppsala University"
+    role: ""
+    bio: ""
+    photo: ""
+    url: ""
+    confirmed: true
+
+  # Draft programme lists "Petru? Tawfik?". Replace name when confirmed.
+  - id: rise-tbc
+    name: "Speaker to be confirmed"
+    initials: "?"
+    affiliation: "RISE Research Institutes of Sweden"
+    role: ""
+    bio: ""
+    photo: ""
+    url: ""
+    confirmed: false

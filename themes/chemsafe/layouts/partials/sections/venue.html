@@ -1,0 +1,27 @@
+{{ $p := site.Params }}
+{{ $v := $p.venue }}
+{{ $d := site.Data.venue }}
+<section id="venue" class="section venue" aria-labelledby="venue-title">
+  <div class="wrap venue-grid">
+    <div>
+      <h2 id="venue-title">Venue and online</h2>
+      <address class="venue-address">
+        <strong>{{ $v.name }}</strong><br>
+        {{ $v.entrance }}, {{ $v.room }}<br>
+        {{ $v.address }}
+      </address>
+      <div class="prose">{{ $d.directions | markdownify }}</div>
+      {{ with $d.practical }}<ul class="hex-list">{{ range . }}<li>{{ . }}</li>{{ end }}</ul>{{ end }}
+      <h3>Joining online</h3>
+      <p>{{ $v.onlineNote }}</p>
+      <p><a href="https://www.openstreetmap.org/?mlat={{ $v.lat }}&amp;mlon={{ $v.lon }}#map=17/{{ $v.lat }}/{{ $v.lon }}" rel="noopener" target="_blank">Open the map in a new tab</a></p>
+    </div>
+    {{ if $p.features.map }}
+    <div class="map">
+      {{ $d1 := 0.006 }}{{ $d2 := 0.0025 }}
+      <iframe title="Map showing {{ $v.name }}" loading="lazy"
+        src="https://www.openstreetmap.org/export/embed.html?bbox={{ sub $v.lon $d1 }}%2C{{ sub $v.lat $d2 }}%2C{{ add $v.lon $d1 }}%2C{{ add $v.lat $d2 }}&amp;layer=mapnik&amp;marker={{ $v.lat }}%2C{{ $v.lon }}"></iframe>
+    </div>
+    {{ end }}
+  </div>
+</section>

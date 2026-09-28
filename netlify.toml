@@ -1,0 +1,6 @@
+# Only used when the site is hosted on Netlify (provider = "netlify" in hugo.toml).
+[build]
+  command = "hugo --gc --minify -b $URL/"
+  publish = "public"
+[build.environment]
+  HUGO_VERSION = "0.140.2"

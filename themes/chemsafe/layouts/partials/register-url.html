@@ -1,0 +1,4 @@
+{{- $r := site.Params.registration -}}
+{{- $url := printf "%s#register" site.Home.RelPermalink -}}
+{{- if and (eq $r.provider "external") $r.externalUrl -}}{{- $url = $r.externalUrl -}}{{- end -}}
+{{- return $url -}}

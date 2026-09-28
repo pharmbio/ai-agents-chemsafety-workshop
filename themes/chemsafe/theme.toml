@@ -1,0 +1,4 @@
+name = "chemsafe"
+license = "MIT"
+description = "Single-page event theme for the AI agents for chemical safety workshop. Structure follows the pharmbio-web Hugo site."
+min_version = "0.120.0"

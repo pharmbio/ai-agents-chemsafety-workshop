@@ -1,0 +1,69 @@
+{{ $p := site.Params }}
+{{ $poll := site.Data.poll }}
+{{ if or $p.features.questions $p.features.poll }}
+<section id="discussion" class="section discussion" aria-labelledby="discussion-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="discussion-title">Shape the discussion</h2>
+      <p class="muted">Two discussion sessions are part of the day. Send a question in advance or vote on what the afternoon should focus on.</p>
+    </div>
+    <div class="discussion-grid">
+      {{ if $p.features.questions }}
+      <div class="panel">
+        <h3>Send a question to the panel</h3>
+        <form class="form" id="question-form" data-form="question" novalidate name="question" method="POST"
+          {{ if eq $p.registration.provider "netlify" }}data-netlify="true" netlify-honeypot="website"{{ end }}>
+          {{ if eq $p.registration.provider "netlify" }}<input type="hidden" name="form-name" value="question">{{ end }}
+          <p class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></p>
+          <div class="field">
+            <label for="q-session">For which session?</label>
+            <select id="q-session" name="session">
+              <option value="Any">Any discussion</option>
+              {{ range site.Data.programme.sessions }}{{ if ne .type "break" }}<option value="{{ .title }}">{{ .start }}  {{ .title }}</option>{{ end }}{{ end }}
+            </select>
+          </div>
+          <div class="field">
+            <label for="q-text">Your question</label>
+            <textarea id="q-text" name="question" rows="4" required maxlength="1000"></textarea>
+            <p class="error" data-error-for="question">Write a question before sending.</p>
+          </div>
+          <div class="field">
+            <label for="q-name">Name <span class="muted">(optional, leave empty to ask anonymously)</span></label>
+            <input id="q-name" name="name" autocomplete="name">
+          </div>
+          <div class="form-foot">
+            <button class="btn" type="submit">Send question</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+      {{ end }}
+
+      {{ if $p.features.poll }}
+      <div class="panel poll" data-poll>
+        <h3>{{ $poll.question }}</h3>
+        <form class="poll-form" data-poll-form name="poll" method="POST"
+          {{ if eq $p.registration.provider "netlify" }}data-netlify="true"{{ end }}>
+          {{ if eq $p.registration.provider "netlify" }}<input type="hidden" name="form-name" value="poll">{{ end }}
+          <fieldset>
+            <legend class="visually-hidden">{{ $poll.question }}</legend>
+            {{ range $poll.options }}
+            <label class="poll-option">
+              <input type="radio" name="vote" value="{{ .id }}">
+              <span class="poll-label">{{ .label }}</span>
+              <span class="poll-bar" aria-hidden="true"><span></span></span>
+              <span class="poll-pct" data-pct-for="{{ .id }}"></span>
+            </label>
+            {{ end }}
+          </fieldset>
+          <div class="form-foot">
+            <button class="btn" type="submit">Send my vote</button>
+            <p class="form-status" role="status" aria-live="polite"></p>
+          </div>
+        </form>
+      </div>
+      {{ end }}
+    </div>
+  </div>
+</section>
+{{ end }}

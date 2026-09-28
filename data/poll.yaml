@@ -1,0 +1,15 @@
+# Vote on what the afternoon discussion should focus on.
+# Visitors can vote once per browser. Results are shown live only with the
+# "apps-script" registration provider; otherwise votes are just collected.
+question: "Which question should the afternoon discussion spend most time on?"
+options:
+  - id: validation
+    label: "How to validate agent outputs against reference assessments"
+  - id: regulatory
+    label: "What regulators would need to accept agent-generated evidence"
+  - id: readacross
+    label: "Using agents for read-across and category formation"
+  - id: hallucination
+    label: "Detecting hallucinations and missing evidence"
+  - id: workflows
+    label: "Fitting agents into existing industry workflows"

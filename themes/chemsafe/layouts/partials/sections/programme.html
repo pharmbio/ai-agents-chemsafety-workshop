@@ -1,0 +1,79 @@
+{{ $p := site.Params }}
+{{ $prog := site.Data.programme }}
+{{ $people := site.Data.speakers.people }}
+<section id="programme" class="section programme" aria-labelledby="programme-title">
+  <div class="wrap">
+    <div class="section-head">
+      <h2 id="programme-title">Programme</h2>
+      <p class="muted">{{ $prog.note }}</p>
+    </div>
+
+    <div class="prog-controls" data-needs-js hidden>
+      <div class="seg" role="group" aria-label="Show times in">
+        <button type="button" aria-pressed="true" data-tz="event">{{ $p.timezoneLabel }}, Uppsala time</button>
+        <button type="button" aria-pressed="false" data-tz="local">Your time zone</button>
+      </div>
+      <div class="filters" role="group" aria-label="Show session types">
+        {{ range $prog.types }}
+          {{ if where $prog.sessions "type" .id }}
+          <button type="button" class="chip" aria-pressed="true" data-filter="{{ .id }}">{{ .label }}</button>
+          {{ end }}
+        {{ end }}
+      </div>
+      {{ if $p.features.myAgenda }}
+      <label class="toggle"><input type="checkbox" data-my-only> <span>Only my starred sessions</span></label>
+      {{ end }}
+    </div>
+
+    <ol class="timeline">
+      {{ range $prog.sessions }}
+      {{ $s := . }}
+      <li class="session type-{{ .type }}" data-id="{{ .id }}" data-type="{{ .type }}" data-start="{{ .start }}" data-end="{{ .end }}" data-title="{{ .title }}">
+        <div class="s-time">
+          <time class="t-start" datetime="{{ $p.date }}T{{ .start }}{{ $p.utcOffset }}">{{ .start }}</time>
+          <span class="t-end">to <time datetime="{{ $p.date }}T{{ .end }}{{ $p.utcOffset }}">{{ .end }}</time></span>
+        </div>
+        <div class="s-body">
+          <div class="s-meta">
+            <span class="tag">{{ range where $prog.types "id" $s.type }}{{ .label }}{{ end }}</span>
+            <span class="now-badge" hidden>Happening now</span>
+          </div>
+          <h3 class="s-title">{{ .title }}</h3>
+          {{ if or .speakers .speakerNote }}
+          <p class="s-speakers">
+            {{ range $i, $id := .speakers }}{{ range where $people "id" $id }}{{ if $i }}, {{ end }}<a href="#speaker-{{ .id }}">{{ .name }}</a>{{ with .affiliation }} <span class="muted">({{ . }})</span>{{ end }}{{ end }}{{ end }}
+            {{ with .speakerNote }}<span class="muted">{{ . }}</span>{{ end }}
+          </p>
+          {{ end }}
+          {{ with .description }}
+          <details class="s-more">
+            <summary>About this session</summary>
+            <div class="prose">{{ . | markdownify }}</div>
+          </details>
+          {{ end }}
+          {{ if or .slides .recording }}
+          <p class="s-materials">
+            {{ with .slides }}<a href="{{ . }}">Slides</a>{{ end }}
+            {{ with .recording }}<a href="{{ . }}">Recording</a>{{ end }}
+          </p>
+          {{ end }}
+        </div>
+        {{ if and $p.features.myAgenda (ne .type "break") }}
+        <div class="s-actions" data-needs-js hidden>
+          <button type="button" class="star" aria-pressed="false" data-star="{{ .id }}">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="m12 3 2.7 5.6 6.1.9-4.4 4.3 1 6.1L12 17l-5.4 2.9 1-6.1-4.4-4.3 6.1-.9z"/></svg>
+            <span class="visually-hidden">Star {{ .title }}</span>
+          </button>
+        </div>
+        {{ end }}
+      </li>
+      {{ end }}
+    </ol>
+    <p class="empty-note muted" data-empty hidden>No sessions match. Star a session with the star button, or turn off the filter.</p>
+
+    <div class="prog-foot" data-needs-js hidden>
+      <button class="btn btn-ghost" type="button" data-ics="event">Download the whole day (.ics)</button>
+      {{ if $p.features.myAgenda }}<button class="btn btn-ghost" type="button" data-ics="starred">Download my starred sessions (.ics)</button>{{ end }}
+    </div>
+  </div>
+</section>

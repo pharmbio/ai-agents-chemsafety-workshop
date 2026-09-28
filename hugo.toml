@@ -1,0 +1,108 @@
+# =============================================================================
+#  AI agents for chemical safety  |  Workshop website (Hugo)
+#  ---------------------------------------------------------------------------
+#  This is the main settings file. Most day-to-day edits (dates, venue,
+#  registration settings, contact) happen here. Lists such as the programme,
+#  speakers, sponsors and FAQ live in the /data folder.
+#  See README.md for a full guide.
+# =============================================================================
+
+# Change this to the final public address of the site, with a trailing slash.
+# GitHub Pages example: "https://pharmbio.github.io/ai-agents-chemsafety/"
+baseURL      = "https://example.org/"
+languageCode = "en-gb"
+title        = "AI agents for chemical safety"
+theme        = "chemsafe"
+enableRobotsTXT = true
+disableKinds = ["taxonomy", "term", "RSS"]
+
+[markup.goldmark.renderer]
+  unsafe = true   # allows plain HTML inside Markdown content
+
+[params]
+  # --- Basic information ------------------------------------------------------
+  subtitle    = "A one-day workshop on LLM-based agents for chemical hazard and risk assessment"
+  description = "One-day hybrid workshop in Uppsala on how LLM-based AI agents can support chemical safety assessment: what works today, where the limits are, and what regulatory use would require."
+  kind        = "Hybrid workshop"
+
+  # Order of sections on the main page. Remove a name to hide that section.
+  # Each name matches a file in themes/chemsafe/layouts/partials/sections/
+  # (Keep this line above the [params.xxx] blocks: TOML rule.)
+  sections = ["hero", "about", "programme", "speakers", "register", "discussion", "venue", "faq"]
+
+  # --- Date and time ----------------------------------------------------------
+  # All programme times in data/programme.yaml are in this time zone.
+  date        = "2026-11-03"          # YYYY-MM-DD
+  dateLabel   = "Tuesday 3 November 2026"
+  startTime   = "10:00"
+  endTime     = "15:00"
+  doorsOpen   = "09:30"               # shown as "Coffee from 09:30"; leave "" to hide
+  timezone    = "Europe/Stockholm"    # IANA name, used for "your time" conversion
+  utcOffset   = "+01:00"              # CET in November. Use "+02:00" for CEST (summer)
+  timezoneLabel = "CET"
+
+  # --- Venue --------------------------------------------------------------------
+  [params.venue]
+    name      = "SciLifeLab, Uppsala Biomedical Centre (BMC)"
+    address   = "Husargatan 3, 752 37 Uppsala, Sweden"
+    entrance  = "Entrance C11"
+    room      = "Room 3309"
+    # Map pin. Check the pin in the preview and adjust if needed.
+    lat       = 59.8424
+    lon       = 17.6385
+    online    = "Zoom"
+    onlineNote = "Talks and the panel are streamed. Online participants can ask questions in the Zoom chat. The Zoom link is emailed to registered online participants the day before."
+
+  # --- Contact --------------------------------------------------------------------
+  [params.contact]
+    name  = "Edgar López López"
+    email = "edgar.lopez@uu.se"
+
+  # --- Registration ---------------------------------------------------------------
+  # provider decides where registrations go:
+  #   "mailto"      -> no server needed. Opens the visitor's email app with a
+  #                    pre-filled message to the contact address. (Default.)
+  #   "apps-script" -> Google Apps Script + Google Sheet (see backend/ folder).
+  #                    Also enables live poll results and on-site capacity.
+  #   "formspree"   -> formspree.io form. Put the form URL in endpoint.
+  #   "netlify"     -> Netlify Forms, only when the site is hosted on Netlify.
+  #   "external"    -> the Register button links to externalUrl (e.g. a UU form).
+  [params.registration]
+    open          = true
+    provider      = "mailto"
+    endpoint      = ""    # e.g. "https://script.google.com/macros/s/XXXX/exec"
+    externalUrl   = ""    # used only when provider = "external"
+    deadline      = ""    # "2026-10-20". Leave "" while the deadline is not set.
+    deadlineLabel = "Deadline to be announced"
+    onsiteCapacity = 0    # 0 hides capacity. Only counted with "apps-script".
+    closedMessage = "Registration is closed. Contact the organisers if you still want to join."
+
+  # --- Interactive features ---------------------------------------------------------
+  [params.features]
+    agentTrace   = true   # animated example agent run in the top banner
+    questions    = true   # "send a question to the panel" form
+    poll         = true   # vote on discussion themes (results need apps-script)
+    myAgenda     = true   # star sessions, stored in the visitor's browser
+    map          = true   # OpenStreetMap embed in the venue section
+    sponsorsOnAllPages = false  # false = sponsor logos only on the main page
+
+  # --- Navigation bar ----------------------------------------------------------------
+  # Links in the top navigation bar (anchor = section id on the main page)
+  [[params.nav]]
+    name = "About"
+    url  = "#about"
+  [[params.nav]]
+    name = "Programme"
+    url  = "#programme"
+  [[params.nav]]
+    name = "Speakers"
+    url  = "#speakers"
+  [[params.nav]]
+    name = "Discussion"
+    url  = "#discussion"
+  [[params.nav]]
+    name = "Venue"
+    url  = "#venue"
+  [[params.nav]]
+    name = "FAQ"
+    url  = "#faq"

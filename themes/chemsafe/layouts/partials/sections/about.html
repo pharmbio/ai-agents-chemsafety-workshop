@@ -1,0 +1,39 @@
+{{ $w := site.Data.workshop }}
+<section id="about" class="section about" aria-labelledby="about-title">
+  <div class="wrap">
+    <div class="about-grid">
+      <div class="prose about-intro">
+        <h2 id="about-title">About the workshop</h2>
+        {{ site.Home.Content }}
+      </div>
+      <div class="aims">
+        <h3>Aims</h3>
+        <ul class="hex-list">
+          {{ range $w.aims }}<li>{{ . }}</li>{{ end }}
+        </ul>
+      </div>
+    </div>
+
+    <div class="topics-head">
+      <h3>Topics</h3>
+      <p class="muted">Select the topics you care about most. They are added to your registration so the speakers know what the room wants to hear.</p>
+    </div>
+    <ul class="topics">
+      {{ range $w.topics }}
+      <li>
+        <button class="topic" type="button" aria-pressed="false" data-topic="{{ .id }}">
+          <span class="topic-title">{{ .title }}</span>
+          <span class="topic-text">{{ .text }}</span>
+          <span class="topic-check" aria-hidden="true"></span>
+        </button>
+      </li>
+      {{ end }}
+    </ul>
+    <p class="topics-count muted" data-topics-count aria-live="polite"></p>
+
+    <div class="audience">
+      <h3>Who should attend</h3>
+      <p>{{ $w.audience.intro }} <strong>{{ $w.audience.note }}</strong></p>
+    </div>
+  </div>
+</section>

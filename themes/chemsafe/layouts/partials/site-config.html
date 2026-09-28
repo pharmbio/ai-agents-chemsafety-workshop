@@ -1,0 +1,27 @@
+{{/* Passes settings and data to main.js. Nothing here needs editing.
+     Hugo lower-cases setting names, so they are mapped explicitly here. */}}
+{{ $p := site.Params }}
+{{ $r := $p.registration }}
+{{ $v := $p.venue }}
+{{ $f := $p.features }}
+{{ $cfg := dict
+  "title" site.Title
+  "date" $p.date
+  "startTime" $p.startTime
+  "endTime" $p.endTime
+  "utcOffset" $p.utcOffset
+  "timezone" $p.timezone
+  "timezoneLabel" $p.timezoneLabel
+  "venue" (dict "name" $v.name "address" $v.address "entrance" $v.entrance "room" $v.room "online" $v.online "onlineNote" $v.onlinenote)
+  "contact" (dict "name" $p.contact.name "email" $p.contact.email)
+  "registration" (dict
+      "open" $r.open "provider" $r.provider "endpoint" $r.endpoint "externalUrl" $r.externalurl
+      "deadline" $r.deadline "deadlineLabel" $r.deadlinelabel
+      "onsiteCapacity" $r.onsitecapacity "closedMessage" $r.closedmessage)
+  "features" (dict "agentTrace" $f.agenttrace "questions" $f.questions "poll" $f.poll "myAgenda" $f.myagenda)
+  "url" site.Home.Permalink
+  "programme" site.Data.programme
+  "topics" site.Data.workshop.topics
+  "poll" site.Data.poll
+}}
+<script id="site-config" type="application/json">{{ $cfg | jsonify | safeJS }}</script>

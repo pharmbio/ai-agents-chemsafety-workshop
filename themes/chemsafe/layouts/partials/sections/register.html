@@ -1,0 +1,149 @@
+{{ $p := site.Params }}
+{{ $r := $p.registration }}
+{{ $w := site.Data.workshop }}
+<section id="register" class="section register" aria-labelledby="register-title">
+  <div class="wrap register-grid">
+    <div class="register-info">
+      <h2 id="register-title">Register</h2>
+      <p class="lead">Attendance is free. Join us in Uppsala or follow online.</p>
+      <ul class="plain-list">
+        <li><strong>On site:</strong> lunch and coffee are provided for registered participants.</li>
+        <li><strong>Online:</strong> the Zoom link is emailed to registered participants the day before.</li>
+        <li><strong>Deadline:</strong> <span data-deadline>{{ $r.deadlineLabel }}</span></li>
+      </ul>
+      <p class="capacity muted" data-capacity hidden></p>
+      <p class="muted small">Questions about registration: <a href="mailto:{{ $p.contact.email }}">{{ $p.contact.email }}</a></p>
+    </div>
+
+    <div class="register-panel">
+    {{ if not $r.open }}
+      <div class="notice"><p>{{ $r.closedMessage }}</p></div>
+    {{ else if eq $r.provider "external" }}
+      <div class="notice">
+        <p>Registration is handled on a separate form.</p>
+        <a class="btn" href="{{ $r.externalUrl }}" rel="noopener">Open the registration form</a>
+      </div>
+    {{ else }}
+      <div class="already" data-already hidden>
+        <p><strong>You are registered<span data-already-name></span>.</strong> A copy of the details is saved in this browser only.</p>
+        <div class="row-actions">
+          <button class="btn btn-ghost" type="button" data-ics="event">Add to calendar</button>
+          <button class="btn btn-link" type="button" data-register-again>Register someone else</button>
+        </div>
+      </div>
+
+      <form class="form" id="registration-form" data-form="registration" novalidate
+        name="registration" method="POST"
+        {{ if eq $r.provider "netlify" }}data-netlify="true" netlify-honeypot="website"{{ end }}>
+        {{ if eq $r.provider "netlify" }}<input type="hidden" name="form-name" value="registration">{{ end }}
+        <p class="hp" aria-hidden="true"><label>Website <input name="website" tabindex="-1" autocomplete="off"></label></p>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="r-name">Full name</label>
+            <input id="r-name" name="name" autocomplete="name" required>
+            <p class="error" data-error-for="name">Enter your full name.</p>
+          </div>
+          <div class="field">
+            <label for="r-email">Email</label>
+            <input id="r-email" name="email" type="email" autocomplete="email" required>
+            <p class="error" data-error-for="email">Enter an email address like name@example.org.</p>
+          </div>
+        </div>
+
+        <div class="field">
+          <label for="r-aff">Organisation</label>
+          <input id="r-aff" name="affiliation" autocomplete="organization" required>
+          <p class="error" data-error-for="affiliation">Enter your university, agency or company.</p>
+        </div>
+
+        <div class="field-row">
+          <div class="field">
+            <label for="r-sector">Sector</label>
+            <select id="r-sector" name="sector" required>
+              <option value="">Choose one</option>
+              <option>Academia</option>
+              <option>Regulatory agency</option>
+              <option>Industry</option>
+              <option>Research institute</option>
+              <option>Other</option>
+            </select>
+            <p class="error" data-error-for="sector">Choose a sector.</p>
+          </div>
+          <div class="field">
+            <label for="r-role">Career stage</label>
+            <select id="r-role" name="role">
+              <option value="">Choose one (optional)</option>
+              <option>PhD student</option>
+              <option>Postdoc</option>
+              <option>Researcher or scientist</option>
+              <option>Risk assessor</option>
+              <option>Group leader or professor</option>
+              <option>Manager</option>
+              <option>Other</option>
+            </select>
+          </div>
+        </div>
+
+        <fieldset class="field">
+          <legend>How will you attend?</legend>
+          <div class="choice-cards">
+            <label class="choice"><input type="radio" name="attendance" value="On site" required>
+              <span><strong>On site in Uppsala</strong><span class="muted">Room 3309, BMC. Lunch included.</span></span></label>
+            <label class="choice"><input type="radio" name="attendance" value="Online">
+              <span><strong>Online via Zoom</strong><span class="muted">Link sent the day before.</span></span></label>
+          </div>
+          <p class="error" data-error-for="attendance">Choose on site or online.</p>
+        </fieldset>
+
+        <div class="onsite-only" data-onsite hidden>
+          <fieldset class="field">
+            <legend>Lunch</legend>
+            <label class="check"><input type="checkbox" name="lunch" value="yes" checked> I will join the lunch</label>
+          </fieldset>
+          <div class="field">
+            <label for="r-diet">Dietary requirements or allergies</label>
+            <input id="r-diet" name="diet" placeholder="For example vegetarian, gluten-free, nut allergy">
+          </div>
+          <div class="field">
+            <label for="r-access">Accessibility needs</label>
+            <input id="r-access" name="access" placeholder="Optional">
+          </div>
+        </div>
+
+        <fieldset class="field">
+          <legend>Topics you are most interested in <span class="muted">(optional)</span></legend>
+          <div class="chips">
+            {{ range $w.topics }}
+            <label class="chip-check"><input type="checkbox" name="interests" value="{{ .title }}" data-topic-input="{{ .id }}"><span>{{ .title }}</span></label>
+            {{ end }}
+          </div>
+        </fieldset>
+
+        <div class="field">
+          <label for="r-q">A question or case you would like discussed <span class="muted">(optional)</span></label>
+          <textarea id="r-q" name="question" rows="3"></textarea>
+        </div>
+
+        <label class="check consent"><input type="checkbox" name="consent" value="yes" required>
+          <span>I agree that the organisers store these details to run the workshop, as described in the <a href="{{ "privacy/" | relURL }}">privacy notice</a>.</span></label>
+        <p class="error" data-error-for="consent">Tick the box to agree to the privacy notice.</p>
+
+        <div class="form-foot">
+          <button class="btn" type="submit">Register</button>
+          <p class="form-status" role="status" aria-live="polite"></p>
+        </div>
+      </form>
+
+      <div class="success" data-success hidden tabindex="-1">
+        <h3>Registered</h3>
+        <p data-success-text></p>
+        <div class="row-actions">
+          <button class="btn" type="button" data-ics="event">Add to calendar</button>
+          <a class="btn btn-ghost" href="#programme">See the programme</a>
+        </div>
+      </div>
+    {{ end }}
+    </div>
+  </div>
+</section>

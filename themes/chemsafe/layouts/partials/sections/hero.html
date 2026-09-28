@@ -1,0 +1,45 @@
+{{ $p := site.Params }}
+{{ $t := site.Data.trace }}
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap hero-grid">
+    <div class="hero-text">
+      <p class="hero-kicker">{{ $p.kind }} in Uppsala and on {{ $p.venue.online }}</p>
+      <h1 id="hero-title">{{ site.Title }}</h1>
+      <p class="hero-sub">{{ $p.subtitle }}</p>
+
+      <dl class="facts">
+        <div><dt>When</dt><dd>{{ $p.dateLabel }}, {{ $p.startTime }}–{{ $p.endTime }} {{ $p.timezoneLabel }}{{ with $p.doorsOpen }}<br><span class="muted">Coffee from {{ . }}</span>{{ end }}</dd></div>
+        <div><dt>Where</dt><dd>{{ $p.venue.name }}<br><span class="muted">{{ $p.venue.entrance }}, {{ $p.venue.room }}</span></dd></div>
+        <div><dt>Online</dt><dd>Streamed on {{ $p.venue.online }}</dd></div>
+        <div><dt>Fee</dt><dd>Free of charge</dd></div>
+      </dl>
+
+      <div class="hero-actions">
+        {{ if $p.registration.open }}
+        <a class="btn" href="{{ partial "register-url.html" . }}">Register for free</a>
+        {{ end }}
+        <button class="btn btn-ghost" type="button" data-ics="event">Add to calendar</button>
+        <button class="btn btn-ghost" type="button" data-share>Share</button>
+      </div>
+      <p class="hero-status" data-status aria-live="polite">{{ $p.registration.deadlineLabel }}</p>
+    </div>
+
+    {{ if $p.features.agentTrace }}
+    <figure class="trace" aria-label="{{ $t.title }}: {{ $t.caption }}">
+      <div class="trace-bar">
+        <span class="trace-title">{{ $t.title }}</span>
+        <button class="trace-replay" type="button" data-trace-replay hidden>Replay</button>
+      </div>
+      <ol class="trace-log">
+        {{ range $i, $s := $t.steps }}
+        <li class="step step-{{ .kind }}" style="--i: {{ $i }}">
+          <span class="step-kind">{{ .kind }}</span>
+          <span class="step-text">{{ .text }}</span>
+        </li>
+        {{ end }}
+      </ol>
+      <figcaption>{{ $t.caption }}</figcaption>
+    </figure>
+    {{ end }}
+  </div>
+</section>

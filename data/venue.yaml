@@ -1,0 +1,8 @@
+# Directions and practical notes for the venue section. Markdown allowed.
+directions: |
+  BMC is on Husargatan, about 25 minutes on foot from Uppsala Central Station.
+  Several UL city bus lines stop near BMC; check [ul.se](https://www.ul.se/en/)
+  for the current timetable. Use **entrance C11** and go to **room 3309**.
+practical:
+  - "Lunch and coffee are provided for on-site participants who register."
+  - "Wi-Fi: eduroam is available at BMC."

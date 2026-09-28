@@ -1,0 +1,117 @@
+# =============================================================================
+#  PROGRAMME
+#  One entry per session, in order. Times use the time zone set in hugo.toml
+#  (CET on 3 November). The site converts them for online visitors.
+#
+#  Fields
+#    id          unique short name, letters/numbers/dashes (used for "My agenda")
+#    start, end  "HH:MM", 24-hour clock
+#    type        talk | demo | discussion | break | welcome
+#    title       session title
+#    speakers    list of ids from data/speakers.yaml   (optional)
+#    speakerNote free text shown instead of / after speakers (optional)
+#    description Markdown, shown when the visitor opens the session (optional)
+#    slides, recording   links added after the event (optional)
+# =============================================================================
+
+note: "Speakers are to be confirmed. All times are in CET (Uppsala time)."
+
+# Session types, in the order the filter buttons appear.
+types:
+  - { id: welcome,    label: "Welcome" }
+  - { id: talk,       label: "Talk" }
+  - { id: demo,       label: "Hands-on demo" }
+  - { id: discussion, label: "Discussion" }
+  - { id: break,      label: "Break" }
+
+sessions:
+  - id: arrival
+    start: "09:30"
+    end: "10:00"
+    type: break
+    title: "Arrival and coffee"
+
+  - id: welcome
+    start: "10:00"
+    end: "10:15"
+    type: welcome
+    title: "Welcome and introduction"
+    speakers: [ola-spjuth]
+    description: >
+      Why this workshop, who is in the room, and how the day is organised.
+      Practical notes for on-site and online participants.
+
+  - id: intro-agents
+    start: "10:15"
+    end: "10:30"
+    type: talk
+    title: "Introduction to AI agents"
+    speakers: [chris-dinh-long]
+    description: >
+      A short primer on LLM-based agents: tool use, retrieval, planning and
+      multi-agent set-ups, and the vocabulary used during the rest of the day.
+
+  - id: chemsafeagent
+    start: "10:30"
+    end: "11:00"
+    type: talk
+    title: "ChemSafeAgent"
+    speakers: [edgar-lopez]
+    description: >
+      Presentation of ChemSafeAgent, an agent for chemical safety assessment
+      that searches literature and databases, runs predictive models and
+      assembles the evidence.
+
+  - id: rise-agent
+    start: "11:00"
+    end: "11:30"
+    type: talk
+    title: "RISE agent"
+    speakers: [rise-tbc]
+    description: >
+      Presentation of the agent developed at RISE Research Institutes of Sweden.
+
+  - id: discussion-morning
+    start: "11:30"
+    end: "12:00"
+    type: discussion
+    title: "Discussion"
+    description: >
+      Open discussion of the morning talks. Online participants can post
+      questions in the Zoom chat, or send them in advance on this page.
+
+  - id: lunch
+    start: "12:00"
+    end: "13:00"
+    type: break
+    title: "Lunch"
+    speakerNote: "Provided for registered on-site participants"
+
+  - id: demo
+    start: "13:00"
+    end: "13:45"
+    type: demo
+    title: "Hands-on demo: an agent working through a case study"
+    speakers: [edgar-lopez, chris-dinh-long]
+    description: >
+      Live walk-through of an agent working on a case study, from data
+      retrieval and predictive models to a weight-of-evidence summary.
+      No programming experience needed to follow along.
+
+  - id: discussion-afternoon
+    start: "13:45"
+    end: "14:45"
+    type: discussion
+    title: "Applications, limitations and future opportunities"
+    description: >
+      Discussion on applications and case studies, current limitations, and
+      what industry and regulators need before agent-generated evidence can
+      be used in assessments. The themes voted for on this page help set
+      the agenda.
+
+  - id: closing
+    start: "14:45"
+    end: "15:00"
+    type: welcome
+    title: "Summary and closing remarks"
+    speakers: [ola-spjuth]

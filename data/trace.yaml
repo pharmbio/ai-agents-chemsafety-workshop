@@ -1,0 +1,19 @@
+# The example agent run shown in the top banner. Purely illustrative.
+# kind: task | search | model | reason | report | done
+title: "Example agent run"
+caption: "Illustrative only. Not a real assessment."
+steps:
+  - kind: task
+    text: "Assess skin sensitisation potential for example substance S-01"
+  - kind: search
+    text: "Registration dossiers and literature: 3 dossiers, 41 abstracts"
+  - kind: model
+    text: "QSAR profilers and structural alerts: 1 alert flagged"
+  - kind: reason
+    text: "Read-across: 2 structural analogues with in vivo data"
+  - kind: reason
+    text: "Weighing 4 lines of evidence, confidence moderate"
+  - kind: report
+    text: "Drafting weight-of-evidence summary with 9 cited sources"
+  - kind: done
+    text: "Waiting for review by a human assessor"
