@@ -26,11 +26,11 @@ people:
 
   - id: chris-dinh-long
     name: "Chris Dinh Long"
-    affiliation: ""
-    role: ""
+    affiliation: "Uppsala Univeristy"
+    role: "PhD Student"
     bio: ""
     photo: ""
-    url: ""
+    url: "https://github.com/DinhLongHuynh"
     confirmed: true
 
   - id: edgar-lopez
