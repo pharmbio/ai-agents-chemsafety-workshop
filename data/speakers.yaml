@@ -31,7 +31,7 @@ people:
     bio: ""
     photo: ""
     url: ""
-    confirmed: false
+    confirmed: true
 
   - id: edgar-lopez
     name: "Edgar López López"
